@@ -22,6 +22,15 @@ OUTPUT:
 stdin File Content is empty
 
 # TEST
+FILE: appendToLine.sh
+#!/bin/bash
+#cat "3lines.txt" | ./appendToLine.sh
+#./appendToLine.sh "one" "two" "three"
+cat "3lines.txt" | ./appendToLine.sh "one" "two" "three" | ./appendToLine.sh "four"
+
+OUTPUT:
+onetwothreefour
+# TEST
 FILE: createFile.sh
 #!/bin/bash
 echo "text" | ./createFile.sh "filename.txt"
