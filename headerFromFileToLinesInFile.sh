@@ -14,10 +14,13 @@ fi
 [ -z "$OUTPUT" ] && echo "!!! Second Param, Target File" && exit
 [ ! -w "$OUTPUT" ] && echo -n "" > $OUTPUT
 [ ! -r "$OUTPUT" ] && echo "!!! NOT READABLE: $OUTPUT" && exit
-echo $OUTPUT
+#echo $OUTPUT
 # Script to split a string based on the delimiter
 header=$(head -n 1 $INPUT)
-params=($(echo $header | tr "," "\n"))
+IFS=','
+params=(${header})
+IFS=""
+params=(${params[@]})
 #Print the split string
 for i in "${params[@]}"
 do

@@ -1,17 +1,26 @@
 #!/bin/bash
-INPUT=
+INPUT=$1
 if [ ! -t 0 ]; then
   IFS='' read -d '' -r INPUT
-  echo -n "${INPUT}"
+  [ -z "$2" ] && OUTPUT=$1
+else
+  OUTPUT=$2
 fi
-[ -z "$1" ] || [ ! -r "$1" ] && echo "!!! First Param, Source File" && exit
-[ ! -z "$2" ] && [ ! -r "$2" ] && echo -n "" > $2
-[ -z "$2" ] || [ ! -r "$2" ] && echo "!!! Second Param, Target File" && exit
+#
+[ -z $INPUT ] && echo "!!! First Param, Source File" && exit
+#
+[ -z "$OUTPUT" ] && echo "!!! Second Param, Target File" && exit
+[ ! -w "$OUTPUT" ] && echo -n "" > $OUTPUT
+[ ! -r "$OUTPUT" ] && echo "!!! NOT READABLE: $OUTPUT" && exit
+#
 # Script to split a string based on the delimiter
-header=$(head -n 1 $1)
-params=($(echo $header | tr "," "\n"))
+header=$(head -n 1 $INPUT)
+IFS=','
+params=(${header})
+IFS=""
+params=(${params[@]})
 #Print the split string
 for i in "${params[@]}"
 do
-    echo $i >> $2
+    echo $i >> $OUTPUT
 done
