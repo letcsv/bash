@@ -34,6 +34,17 @@ w ramach projektu apidsl.com
 
 ## TEST
 
+```bash
+./test.sh
+```
+
+
+```bash
+./test.sh headerToLinesInFile.sh
+./test.sh headerFromFileToLinesInFile.sh
+```
+
+
 Start tests:
 ```bash
 ./test.sh > test1.txt
